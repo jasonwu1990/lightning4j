@@ -31,7 +31,8 @@ public class GameHandlerManager {
      * @throws Exception
      */
     public void register(GameHandler cls, String cmd, String module) throws Exception {
-        handlerMap.put(cmd + "-" + module, cls);
+//        handlerMap.put(cmd + "-" + module, cls);
+    	handlerMap.put(cmd, cls);
     }
 
     /**

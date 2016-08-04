@@ -15,8 +15,8 @@
     <repositories>
         <repository>
             <id>nexus</id>
-            <name>local private nexus</name>
-            <url>http://localhost:8081/nexus/content/groups/public</url>
+            <name>maven-public</name>
+            <url>http://localhost:8084/repository/maven-public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -25,6 +25,19 @@
             </snapshots>
         </repository>
     </repositories>
+    <pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>maven-public</name>
+			<url>http://localhost:8084/repository/maven-public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
     <build>
         <resources>
             <resource>
@@ -63,8 +76,8 @@
     <dependencies>
         <dependency>
             <groupId>netty</groupId>
-            <artifactId>netty</artifactId>
-            <version>5.0.0.Alpha2</version>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.4.Final</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -117,11 +130,16 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.3</version>
         </dependency>
+        <!-- 
+        
         <dependency>
             <groupId>org.apache</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.6</version>
         </dependency>
+        
+         -->
+        
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>

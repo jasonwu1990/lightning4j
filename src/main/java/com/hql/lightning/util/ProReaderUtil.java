@@ -22,7 +22,7 @@ public class ProReaderUtil {
     /**
      * 配置文件路径
      */
-    private String confPath = "gameFiles";
+    private String confPath = "confFiles";
 
     /**
      * redis配置缓存

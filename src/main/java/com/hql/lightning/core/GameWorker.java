@@ -90,7 +90,8 @@ public class GameWorker implements Runnable {
             while ((c = msgQueue.poll()) != null) {
                 String cmd = c.getCmd();
                 try {
-                    GameHandler handler = GameHandlerManager.getInstance().getHandler(cmd + "-" + name);
+//                    GameHandler handler = GameHandlerManager.getInstance().getHandler(cmd + "-" + name);
+                	GameHandler handler = GameHandlerManager.getInstance().getHandler(cmd);
                     if (handler != null) {
                         //记录执行时间过长的指令
                         long startTime = System.currentTimeMillis();

@@ -48,8 +48,8 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
      */
     private static final AttributeKey<Connection> conn = AttributeKey.valueOf("Conn.attr");
 
-    @Override
-    protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
+	@Override
+	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         //传统http数据包接入
         if (msg instanceof FullHttpRequest) {
             handleHttpRequest(ctx, (FullHttpRequest) msg);
@@ -59,7 +59,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
         else if (msg instanceof WebSocketFrame) {
             handleWebSocketFrame(ctx, (WebSocketFrame) msg);
         }
-    }
+	}
 
     /**
      * 处理传统http消息
@@ -148,12 +148,12 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
             ByteBuf buf = Unpooled.copiedBuffer(res.status().toString(), CharsetUtil.UTF_8);
             res.content().writeBytes(buf);
             buf.release();
-            HttpHeaderUtil.setContentLength(res, res.content().readableBytes());
+            HttpUtil.setContentLength(res, res.content().readableBytes());
         }
 
         ChannelFuture f = ctx.channel().writeAndFlush(res);
         //非keep-alive，关闭连接
-        if (!HttpHeaderUtil.isKeepAlive(req) || res.status().code() != 200) {
+        if (!HttpUtil.isKeepAlive(req) || res.status().code() != 200) {
             f.addListener(ChannelFutureListener.CLOSE);
         }
     }
@@ -192,4 +192,5 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
         String location =  req.headers().get(HOST) + WEBSOCKET_PATH;
         return "ws://" + location;
     }
+
 }

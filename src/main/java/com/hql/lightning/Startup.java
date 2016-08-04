@@ -1,14 +1,15 @@
+package com.hql.lightning;
+
 import com.hql.lightning.buffer.GameUpBuffer;
 import com.hql.lightning.core.GameBoss;
 import com.hql.lightning.core.GameUpProcessor;
 import com.hql.lightning.core.GameWorkerManager;
 import com.hql.lightning.core.ServerInit;
-import com.hql.lightning.util.ModuleUtil;
 
 /**
- * server测试
+ * server启动
  */
-public class ServiceTest {
+public class Startup {
 
     public void run() throws Exception {
         ServerInit.getInstance().initConfPath("confFiles");
@@ -27,34 +28,6 @@ public class ServiceTest {
     }
 
     public static void main(String[] args) throws Exception {
-        new ServiceTest().run();
+        new Startup().run();
     }
 }
-
-/**
- * 自动更新测试
- */
-class AutoUpdateTest implements Runnable {
-
-    private boolean isUpdated = true;
-
-    private boolean isFinish = false;
-
-    @Override
-    public void run() {
-        try {
-            if (!isUpdated && !isFinish) {
-                System.out.println("start update module...");
-                ModuleUtil.getInstance().updateModule("test2");
-                System.out.println("update module finished, now modules:");
-                System.out.println(ModuleUtil.getInstance().getModuleInfo());
-                isFinish = true;
-            }
-            isUpdated = false;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}
-
-
